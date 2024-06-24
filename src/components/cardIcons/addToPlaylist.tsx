@@ -4,11 +4,12 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
 import { BaseMovieProps } from "../../types/interfaces";
 
-const AddToPlaylistIcon: React.FC<BaseMovieProps> = (movie) => {
+const AddToPlaylistIcon: React.FC<{ movie: BaseMovieProps }> = ({ movie }) => {
   const context = useContext(MoviesContext);
 
  const onUserSelect = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log("Movie object in onUserSelect: ", movie);
     context.addToMustWatch(movie);
   };
   return (

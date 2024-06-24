@@ -1,10 +1,8 @@
 import React from "react";
 import PageTemplate from '../components/templateMovieListPage';
 import { getUpcomingMovies } from "../api/tmdb-api";
-
 import { useQuery } from 'react-query'; 
 import Spinner from '../components/spinner';
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites';
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist';
 
 
@@ -23,13 +21,13 @@ const UpcomingMoviesPage = (props) => {
 
   return (
     <PageTemplate
-    title='Upcoming Movies'
-    movies={movies}
-    action={(movie) => {
-      return <AddToPlaylistIcon movie={movie} />
-    }}
-    selectFavourite={addToFavourites}
-  />
+      title='Upcoming Movies'
+      movies={movies}
+      action={(movie) => {
+        return <AddToPlaylistIcon movie={movie} />
+      }}
+      selectFavourite={addToFavourites}
+    />
   );
 };
 export default UpcomingMoviesPage;
