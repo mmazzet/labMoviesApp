@@ -12,6 +12,8 @@ import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
 
 
+
+
 const titleFiltering = {
   name: "title",
   value: "",

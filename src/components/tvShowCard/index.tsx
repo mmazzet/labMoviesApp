@@ -1,4 +1,4 @@
-import React, {MouseEvent, useContext} from "react";
+import React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -6,20 +6,18 @@ import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
+// import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
 // import IconButton from "@mui/material/IconButton";
 import img from '../../images/film-poster-placeholder.png';
-import { BaseMovieProps } from "../../types/interfaces"; 
+import { BaseTvShowProps } from "../../types/interfaces"; 
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import { MoviesContext } from "../../contexts/moviesContext";
+//import { MoviesContext } from "../../contexts/moviesContext";
 
-interface MovieCardProps {
-  movie: BaseMovieProps;
-  action: (m: BaseMovieProps) => React.ReactNode;
+interface TvShowCardProps {
+  tvShow: BaseTvShowProps;
+  action: (m: BaseTvShowProps) => React.ReactNode;
 }
 
 const styles = {
@@ -31,54 +29,37 @@ const styles = {
 
 };
 
-const MovieCard: React.FC<MovieCardProps> = ({movie, action}) => {
-  const { favourites, addToFavourites } = useContext(MoviesContext);
-
-  const isFavourite = favourites.find((id) => id === movie.id)? true : false;
+const TvShowCard: React.FC<TvShowCardProps> = ({tvShow, action}) => {
 
   return (
     <Card sx={styles.card}>
-    <CardHeader
-      avatar={
-        isFavourite ? (   //CHANGED
-          <Avatar sx={styles.avatar}>
-            <FavoriteIcon />
-          </Avatar>
-        ) : null
-      }
-      title={
-        <Typography variant="h5" component="p">
-          {movie.title}{" "}
-        </Typography>
-      }
-    />
       <CardMedia
         sx={styles.media}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+          tvShow.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${tvShow.poster_path}`
             : img
         }
       />
       <CardContent>
         <Grid container>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+              {tvShow.release_date}
             </Typography>
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
-              {"  "} {movie.vote_average}{" "}
+              {"  "} {tvShow.vote_average}{" "}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {action(movie)}
-        <Link to={`/movies/${movie.id}`}>
+        {action(tvShow)}
+        <Link to={`/tvShows/${tvShow.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>
@@ -88,4 +69,4 @@ const MovieCard: React.FC<MovieCardProps> = ({movie, action}) => {
   );
 }
 
-export default MovieCard;
+export default TvShowCard;

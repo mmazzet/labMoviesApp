@@ -17,9 +17,28 @@ export interface BaseMovieProps {
   favourite?: boolean;
 }
 
+export interface BaseTvShowProps {
+  title: string;
+  homepage: string | undefined;
+  id: number;
+  imdb_id: string;
+  original_language: string;
+  overview: string;
+  vote_average: number;
+  poster_path?: string;
+  tagline: string;
+  revenue: number;
+  vote_count: number;
+}
+
 export interface BaseMovieListProps {
   movies: BaseMovieProps[];
   action: (m: BaseMovieProps) => React.ReactNode;
+}
+
+export interface BaseTvShowListProps {
+  tvShows: BaseTvShowProps[];
+  action: (t: BaseTvShowProps) => React.ReactNode;
 }
 
 export interface MovieDetailsProps extends BaseMovieProps {
@@ -44,12 +63,27 @@ export interface MovieImage {
   width?: number;
 }
 
+export interface TvShowImage {
+  file_path: string;
+  aspect_ratio?: number; 
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
 export interface MoviePageProps {
   movie: MovieDetailsProps;
   images: MovieImage[];
 }
 
-export interface MovieListPageTemplateProps extends BaseMovieListProps {
+export interface TvShowPageProps {
+  tvShow: TvShowDetailsProps;
+  images: TvShowImage[];
+}
+
+export interface TvShowListPageTemplateProps extends BaseTvShowListProps {
   title: string;
 }
 
@@ -73,6 +107,13 @@ export interface DiscoverMovies {
   total_pages: number;
   total_results: number;
   results: BaseMovieProps[];
+}
+
+export interface DiscoverTvShows {
+  page: number;	
+  total_pages: number;
+  total_results: number;
+  results: BaseTvShowProps[];
 }
 
 export interface Review {
