@@ -123,3 +123,7 @@ export interface Review {
   rating: number,
   movieId: number,
 }
+
+export interface MovieListPageTemplateProps extends BaseMovieListProps {
+  title: string;
+}

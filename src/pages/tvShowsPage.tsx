@@ -3,6 +3,7 @@ import PageTemplate from "../components/templateTvShowListPage";
 import { getTvShows } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
+import { DiscoverTvShows, BaseTvShowProps } from "../types/interfaces";
 
 const TvShowsPage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>("discover", getTvShows);
@@ -15,9 +16,6 @@ const TvShowsPage: React.FC = () => {
     return <h1>{error.message}</h1>;
   }
 
-
- 
-
   const tvShows = data ? data.results : [];
 
   return (
@@ -25,7 +23,7 @@ const TvShowsPage: React.FC = () => {
        <PageTemplate
         title="Discover Tv Shows"
         tvShows={tvShows}
-        action={{tvShow: BaseTvShowsProps }}
+        action={(tvShow: BaseTvShowProps)=> null}
         />
     </>
   );
