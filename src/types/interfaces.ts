@@ -18,17 +18,18 @@ export interface BaseMovieProps {
 }
 
 export interface BaseTvShowProps {
-  title: string;
+  name: string;
   homepage: string | undefined;
   id: number;
-  imdb_id: string;
+  // imdb_id: string;
   original_language: string;
+  original_country: string;
   overview: string;
   vote_average: number;
   poster_path?: string;
-  tagline: string;
-  revenue: number;
+  first_air_date: number;
   vote_count: number;
+
 }
 
 export interface BaseMovieListProps {
