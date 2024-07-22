@@ -6,7 +6,7 @@ import Spinner from "../components/spinner";
 import { DiscoverTvShows, BaseTvShowProps } from "../types/interfaces";
 
 const TvShowsPage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>("discover", getTvShows);
+  const { data, error, isLoading, isError } = useQuery<DiscoverTvShows, Error>("tvShows", getTvShows);
 
   if (isLoading) {
     return <Spinner />;
