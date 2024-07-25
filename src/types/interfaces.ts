@@ -128,3 +128,41 @@ export interface Review {
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;
 }
+
+export interface TvShowImage {
+  file_path: string;
+  aspect_ratio?: number; 
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+}
+
+export interface TvShowDetailsProps {
+  name: string;
+  id: number;
+  tagline: string;
+  homepage: string | undefined;
+  overview: string;
+  number_of_seasons: number;
+  number_of_episodes: number;
+  vote_average: number;
+  vote_count: number;
+  first_air_date: string;
+  seasons: {
+    name: string;
+  }[];
+  genres: {
+    id: number;
+    name: string;
+  }[];
+  production_countries: {
+    name: string;
+  }[];
+}
+
+export interface TvShowPageProps {
+  tvShow: TvShowDetailsProps;
+  images: TvShowImage[];
+}
