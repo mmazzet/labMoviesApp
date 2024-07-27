@@ -160,6 +160,7 @@ export interface TvShowDetailsProps {
   production_countries: {
     name: string;
   }[];
+  original_language: string;
 }
 
 export interface TvShowPageProps {

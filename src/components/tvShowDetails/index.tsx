@@ -48,13 +48,8 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (tvShow) => {
       </Paper>
       <Paper component="ul" sx={styles.chipSet}>
         <li>
-          <Chip label="Seasons" sx={styles.chipLabel} color="primary" />
+          <Chip label={`Language: ${tvShow.original_language}`} color="primary" />
         </li>
-        {tvShow.seasons.map((s) => (
-          <li key={s.name}>
-            <Chip label={s.name} />
-          </li>
-        ))}
       </Paper>
       <Paper component="ul" sx={styles.chipSet}>
         <li>
