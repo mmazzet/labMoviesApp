@@ -9,7 +9,7 @@ import { MovieDetailsProps } from "../../types/interfaces";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
-import MovieReviews from '../movieReviews'
+import MovieReviews from '../movieReviews';
 
 const styles = {
     chipSet: {
@@ -33,7 +33,10 @@ const styles = {
 
 const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
 
-    const [drawerOpen, setDrawerOpen] = useState(false); // New
+    const [drawerOpen, setDrawerOpen] = useState(false); 
+    const [showAllCast, setShowAllCast] = useState(false);
+
+    const displayedCast = showAllCast ? movie.credits.cast : movie.credits.cast.slice(0, 15);
 
     return (
         <>
@@ -77,6 +80,27 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
                     </li>
                 ))}
             </Paper>
+
+            <Typography variant="h5" component="h3">
+                Cast
+            </Typography>
+            {displayedCast.map((castMember) => (
+                <Typography key={castMember.credit_id}>
+                    {castMember.name} {" - "} {castMember.character}
+                </Typography>
+            ))}
+            {movie.credits.cast.length > 15 && (
+                <Typography 
+                    variant="body2" 
+                    color="primary" 
+                    onClick={() => setShowAllCast(!showAllCast)}
+                    style={{ cursor: "pointer" }}
+                >
+                    {showAllCast ? "Show Less" : "Show More"}
+                </Typography>
+            )}
+
+            
             <Fab
                 color="secondary"
                 variant="extended"
