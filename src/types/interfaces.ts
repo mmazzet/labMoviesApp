@@ -184,3 +184,17 @@ export interface CastProps {
     order: number;
   }[];
 }
+
+export interface Actor {
+  name: string;
+  profile_path: string;
+  known_for_department: string;
+  birthday: string;
+  place_of_birth: string;
+  deathday?: string;
+  biography: string;
+}
+
+export interface ActorDetailsProps {
+  actor: Actor;
+}

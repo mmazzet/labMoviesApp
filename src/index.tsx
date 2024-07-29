@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; 
@@ -14,6 +14,7 @@ import AddMovieReviewPage from './pages/addMovieReviewPage';
 import TvShowsPage from "./pages/tvShowsPage";
 import TvShowDetailsPage from "./pages/tvShowDetailsPage";
 import TrendingPage from "./pages/trendingPage";
+import ActorDetailsPage from "./pages/actorDetailsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/tvshows" element={<TvShowsPage />} />
           <Route path="/tvshows/:id" element={<TvShowDetailsPage />} />
           <Route path="/trending" element={<TrendingPage />} /> 
+          <Route path="/actor/:id" element={<ActorDetailsPage />} />
         </Routes>
         </MoviesContextProvider>
       </BrowserRouter>

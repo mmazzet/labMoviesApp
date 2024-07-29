@@ -10,6 +10,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from '../movieReviews';
+import { Link } from "react-router-dom";
 
 const styles = {
     chipSet: {
@@ -86,7 +87,8 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
             </Typography>
             {displayedCast.map((castMember) => (
                 <Typography key={castMember.credit_id}>
-                    {castMember.name} {" - "} {castMember.character}
+                     <Link to={`/actor/${castMember.id}`}>{castMember.name}</Link> 
+                     {" - "} {castMember.character}
                 </Typography>
             ))}
             {movie.credits.cast.length > 15 && (
