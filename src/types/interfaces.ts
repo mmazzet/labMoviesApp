@@ -198,3 +198,12 @@ export interface Actor {
 export interface ActorDetailsProps {
   actor: Actor;
 }
+
+export interface MyFantasyMovies {
+  title: string,
+  overview: string,
+  genres: number[];
+  release_date: string,
+  runtime: number,
+  production_companies: string;
+}
