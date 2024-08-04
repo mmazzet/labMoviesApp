@@ -202,7 +202,10 @@ export interface ActorDetailsProps {
 export interface MyFantasyMovies {
   title: string,
   overview: string,
-  genres: number[];
+  genres: {
+    id: number;
+    name: string;
+  }[];
   release_date: string,
   runtime: number,
   production_companies: string;

@@ -12,7 +12,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-// import { MoviesContext } from "../../contexts/moviesContext";
+import { MoviesContext } from "../../contexts/moviesContext";
 import { MyFantasyMovies, GenreData } from "../../types/interfaces";
 import { getGenres } from "../../api/tmdb-api";
 
@@ -24,7 +24,7 @@ const styles = {
     alignItems: "center",
   },
   card: {
-    width: "80%",
+    width: "90%",
     maxWidth: "600px",
     padding: "16px",
   },
@@ -40,12 +40,6 @@ const styles = {
   },
   submit: {
     marginRight: 2,
-  },
-  snack: {
-    width: "50%",
-    "& > * ": {
-      width: "100%",
-    },
   },
 };
 
@@ -65,10 +59,11 @@ const MyFantasyMovieForm: React.FC = () => {
     handleSubmit,
     reset,
   } = useForm<MyFantasyMovies>({ defaultValues });
-
-  // const context = useContext(MoviesContext);
-
-  const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
+  const { addToMyFantasyMovies } = useContext(MoviesContext);
+  const { data, error, isLoading, isError } = useQuery<GenreData, Error>(
+    "genres",
+    getGenres
+  );
 
   if (isLoading) {
     return <Spinner />;
@@ -79,18 +74,23 @@ const MyFantasyMovieForm: React.FC = () => {
   const genres = data?.genres || [];
 
   const onSubmit: SubmitHandler<MyFantasyMovies> = (movie) => {
-    console.log(movie);
+    addToMyFantasyMovies(movie);
     reset();
+    console.log(movie);
   };
 
   return (
     <Box component="div" sx={styles.root}>
-      <Typography component="h2" variant="h3" gutterBottom>
-        Add a Fantasy Movie
+      <Typography component="h3" variant="h4">
+        Add your Fantasy Movie
       </Typography>
       <Card sx={styles.card}>
         <CardContent>
-          <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+          <form
+            style={styles.form}
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+          >
             <Controller
               name="title"
               control={control}
@@ -143,26 +143,24 @@ const MyFantasyMovieForm: React.FC = () => {
                 {errors.overview.message}
               </Typography>
             )}
-            {/* Genres Dropdown */}
             <Controller
               name="genres"
               control={control}
-              rules={{ required: "At least one genre is required" }}
+              rules={{ required: "Genre is required" }}
               defaultValue={[]}
               render={({ field: { onChange, value } }) => (
                 <>
-                  <InputLabel id="genres-label">Genres</InputLabel>
+                  <InputLabel id="genre-label">Genre(s)</InputLabel>
                   <Select
-                    labelId="genres-label"
-                    id="genres"
+                    labelId="genre-label"
+                    id="genre-select"
                     value={value}
+                    multiple
                     onChange={onChange}
                     sx={styles.textField}
-                    multiple
-                    required
                   >
                     {genres.map((genre) => (
-                      <MenuItem key={genre.id} value={genre.id}>
+                      <MenuItem key={genre.id} value={genre.name}>
                         {genre.name}
                       </MenuItem>
                     ))}
@@ -238,7 +236,7 @@ const MyFantasyMovieForm: React.FC = () => {
                   onChange={onChange}
                   value={value}
                   id="production_companies"
-                  label="Production Companies"
+                  label="Production Company"
                 />
               )}
             />
@@ -269,9 +267,8 @@ const MyFantasyMovieForm: React.FC = () => {
                 title: "",
                 overview: "",
                 genres: [],
-                release_date: "",
                 runtime: 0,
-                production_companies: ""
+                production_companies: "",
               });
             }}
           >
