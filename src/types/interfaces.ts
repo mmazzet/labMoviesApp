@@ -88,7 +88,7 @@ export interface TvShowListPageTemplateProps extends BaseTvShowListProps {
   title: string;
 }
 
-export type FilterOption = "title" | "genre";
+export type FilterOption = "title" | "genre" | "voteAverage" | "releaseDate";
 
 export interface Review{
   id: string;

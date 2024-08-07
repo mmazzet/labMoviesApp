@@ -34,10 +34,12 @@ interface FilterMoviesCardProps {
   onUserInput: (f: FilterOption, s: string)  => void;
   titleFilter: string;
   genreFilter: string;
+  voteAverageFilter: string;
+  releaseDateFilter: string;
 }
 
 
-const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreFilter, onUserInput }) => {
+const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreFilter, voteAverageFilter, releaseDateFilter, onUserInput }) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>("genres", getGenres);
 
   if (isLoading) {
@@ -63,6 +65,15 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreF
   const handleGenreChange = (e: SelectChangeEvent) => {
     handleChange(e, "genre", e.target.value)
   };
+
+  const handleVoteAverageChange = (e: SelectChangeEvent) => {
+    handleChange(e, "voteAverage", e.target.value)
+  };
+
+  const handleReleaseDateChange = (e: SelectChangeEvent) => {
+    handleChange(e, "releaseDate", e.target.value)
+  };
+
   return (
     <>
     <Card sx={styles.root} variant="outlined">
@@ -95,6 +106,36 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({ titleFilter, genreF
                 </MenuItem>
               );
             })}
+          </Select>
+        </FormControl>
+        <FormControl sx={styles.formControl}>
+          <InputLabel id="vote-average-label">Vote Average</InputLabel>
+          <Select
+            labelId="vote-average-label"
+            id="vote-average-select"
+            value={voteAverageFilter}
+            onChange={handleVoteAverageChange}
+          >
+            <MenuItem value={"0"}>All</MenuItem>
+            <MenuItem value={"5"}>5+</MenuItem>
+            <MenuItem value={"6"}>6+</MenuItem>
+            <MenuItem value={"7"}>7+</MenuItem>
+            <MenuItem value={"8"}>8+</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={styles.formControl}>
+          <InputLabel id="release-date-label">Release Date</InputLabel>
+          <Select
+            labelId="release-date-label"
+            id="release-date-select"
+            value={releaseDateFilter}
+            onChange={handleReleaseDateChange}
+          >
+            <MenuItem value={"0"}>All</MenuItem>
+            <MenuItem value={"2024"}>2024</MenuItem>
+            <MenuItem value={"2023"}>2023</MenuItem>
+            <MenuItem value={"2022"}>2022</MenuItem>
+            <MenuItem value={"2021"}>2021</MenuItem>
           </Select>
         </FormControl>
       </CardContent>

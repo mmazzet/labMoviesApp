@@ -8,6 +8,7 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  voteAverageFilter,
 } from "../components/movieFilterUI";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
@@ -23,13 +24,18 @@ const genreFiltering = {
   condition: genreFilter,
 };
 
+const averageVoteFiltering = {
+  name: "voteAverage",
+  value: "0",
+  condition: voteAverageFilter,
+};
+
 const FavouriteMoviesPage: React.FC = () => {
   const { favourites: movieIds } = useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, averageVoteFiltering]
   );
 
-  // Create an array of queries and run them in parallel.
   const favouriteMovieQueries = useQueries(
     movieIds.map((movieId) => {
       return {
@@ -39,7 +45,6 @@ const FavouriteMoviesPage: React.FC = () => {
     })
   );
 
-  // Check if any of the parallel queries is still loading.
   const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
 
   if (isLoading) {
@@ -76,6 +81,7 @@ const FavouriteMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        voteAverageFilter={filterValues[2].value}
       />
     </>
   );

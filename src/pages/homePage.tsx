@@ -5,14 +5,13 @@ import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, {
   titleFilter,
   genreFilter,
+  voteAverageFilter,
+  releaseDateFilter,
 } from "../components/movieFilterUI";
 import { DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
-
-
-
 
 const titleFiltering = {
   name: "title",
@@ -24,12 +23,28 @@ const genreFiltering = {
   value: "0",
   condition: genreFilter,
 };
+const voteAverageFiltering = {
+  name: "voteAverage",
+  value: "0",
+  condition: voteAverageFilter,
+};
+const releaseDateFiltering = {
+  name: "releaseDate",
+  value: "",
+  condition: (movie, value) => {
+    if (!value) return true; // Allow all movies if the filter value is empty
+    const releaseDate = new Date(movie.release_date);
+    const filterDate = new Date(value);
+    return releaseDate >= filterDate;
+  },
+};
 
 const HomePage: React.FC = () => {
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
-    [titleFiltering, genreFiltering]
+    [titleFiltering, genreFiltering, voteAverageFiltering, releaseDateFiltering]
   );
+
 
   if (isLoading) {
     return <Spinner />;
@@ -42,10 +57,24 @@ const HomePage: React.FC = () => {
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
-    const updatedFilterSet =
-      type === "title"
-        ? [changedFilter, filterValues[1]]
-        : [filterValues[0], changedFilter];
+    let updatedFilterSet;
+  
+    switch (type) {
+      case "title":
+        updatedFilterSet = [changedFilter, filterValues[1], filterValues[2]];
+        break;
+      case "genre":
+        updatedFilterSet = [filterValues[0], changedFilter, filterValues[2]];
+        break;
+      case "voteAverage":
+        updatedFilterSet = [filterValues[0], filterValues[1], changedFilter];
+        break;
+      case "releaseDate": 
+        updatedFilterSet = [filterValues[0], filterValues[1], filterValues[2], changedFilter];
+        break;
+      default:
+        updatedFilterSet = filterValues; 
+    }
     setFilterValues(updatedFilterSet);
   };
 
@@ -57,21 +86,23 @@ const HomePage: React.FC = () => {
  // localStorage.setItem("favourites", JSON.stringify(favourites));
  // const addToFavourites = (movieId: number) => true;
 
-  return (
-    <>
-       <PageTemplate
-        title="Discover Movies"
-        movies={displayedMovies}
-        action={(movie: BaseMovieProps) => {
-          return <AddToFavouritesIcon {...movie} />
-        }}
-      />
-      <MovieFilterUI
-        onFilterValuesChange={changeFilterValues}
-        titleFilter={filterValues[0].value}
-        genreFilter={filterValues[1].value}
-      />
-    </>
-  );
+ return (
+  <>
+    <PageTemplate
+      title="Discover Movies"
+      movies={displayedMovies}
+      action={(movie: BaseMovieProps) => {
+        return <AddToFavouritesIcon {...movie} />
+      }}
+    />
+    <MovieFilterUI
+      onFilterValuesChange={changeFilterValues}
+      titleFilter={filterValues[0]?.value}
+      genreFilter={filterValues[1]?.value}
+      voteAverageFilter={filterValues[2]?.value}
+      releaseDateFilter={filterValues[3]?.value}
+    />
+  </>
+);
 };
 export default HomePage;
