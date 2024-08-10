@@ -32,7 +32,7 @@ const releaseDateFiltering = {
   name: "releaseDate",
   value: "",
   condition: (movie, value) => {
-    if (!value) return true; // Allow all movies if the filter value is empty
+    if (!value) return true; 
     const releaseDate = new Date(movie.release_date);
     const filterDate = new Date(value);
     return releaseDate >= filterDate;
@@ -57,24 +57,11 @@ const HomePage: React.FC = () => {
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
-    let updatedFilterSet;
-  
-    switch (type) {
-      case "title":
-        updatedFilterSet = [changedFilter, filterValues[1], filterValues[2]];
-        break;
-      case "genre":
-        updatedFilterSet = [filterValues[0], changedFilter, filterValues[2]];
-        break;
-      case "voteAverage":
-        updatedFilterSet = [filterValues[0], filterValues[1], changedFilter];
-        break;
-      case "releaseDate": 
-        updatedFilterSet = [filterValues[0], filterValues[1], filterValues[2], changedFilter];
-        break;
-      default:
-        updatedFilterSet = filterValues; 
-    }
+    const updatedFilterSet = filterValues.map((filter) =>
+      filter.name === type ? changedFilter : filter
+    );
+
+    console.log('Updated filterValues:', updatedFilterSet);
     setFilterValues(updatedFilterSet);
   };
 
