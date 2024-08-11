@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -11,7 +11,8 @@ import MovieFilterUI, {
 import { DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import AddToFavouritesIcon from '../components/cardIcons/addToFavourites'
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import { BaseMovieProps } from "../types/interfaces";
 
 const titleFiltering = {
   name: "title",
@@ -32,7 +33,7 @@ const releaseDateFiltering = {
   name: "releaseDate",
   value: "",
   condition: (movie, value) => {
-    if (!value) return true; 
+    if (!value) return true;
     const releaseDate = new Date(movie.release_date);
     const filterDate = new Date(value);
     return releaseDate >= filterDate;
@@ -40,11 +41,19 @@ const releaseDateFiltering = {
 };
 
 const HomePage: React.FC = () => {
-  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>("discover", getMovies);
-  const { filterValues, setFilterValues, filterFunction } = useFiltering(
-    [titleFiltering, genreFiltering, voteAverageFiltering, releaseDateFiltering]
-  );
+  const [page, setPage] = useState(1);
 
+  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+    ["discover", page],
+    () => getMovies(page),
+    { keepPreviousData: true }
+  );
+  const { filterValues, setFilterValues, filterFunction } = useFiltering([
+    titleFiltering,
+    genreFiltering,
+    voteAverageFiltering,
+    releaseDateFiltering,
+  ]);
 
   if (isLoading) {
     return <Spinner />;
@@ -54,14 +63,12 @@ const HomePage: React.FC = () => {
     return <h1>{error.message}</h1>;
   }
 
-
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
     const updatedFilterSet = filterValues.map((filter) =>
       filter.name === type ? changedFilter : filter
     );
 
-    console.log('Updated filterValues:', updatedFilterSet);
     setFilterValues(updatedFilterSet);
   };
 
@@ -69,27 +76,41 @@ const HomePage: React.FC = () => {
   const displayedMovies = filterFunction(movies);
 
   // Redundant, but necessary to avoid app crashing.
- // const favourites = movies.filter(m => m.favourite)
- // localStorage.setItem("favourites", JSON.stringify(favourites));
- // const addToFavourites = (movieId: number) => true;
+  // const favourites = movies.filter(m => m.favourite)
+  // localStorage.setItem("favourites", JSON.stringify(favourites));
+  // const addToFavourites = (movieId: number) => true;
 
- return (
-  <>
-    <PageTemplate
-      title="Discover Movies"
-      movies={displayedMovies}
-      action={(movie: BaseMovieProps) => {
-        return <AddToFavouritesIcon {...movie} />
-      }}
-    />
-    <MovieFilterUI
-      onFilterValuesChange={changeFilterValues}
-      titleFilter={filterValues[0]?.value}
-      genreFilter={filterValues[1]?.value}
-      voteAverageFilter={filterValues[2]?.value}
-      releaseDateFilter={filterValues[3]?.value}
-    />
-  </>
-);
+  const goToNextPage = () => {
+    if (data && page < data.total_pages) {
+      setPage(page + 1);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  return (
+    <>
+      <PageTemplate
+        title="Discover Movies"
+        movies={displayedMovies}
+        onNextPage={goToNextPage}
+        onPreviousPage={goToPreviousPage}
+        action={(movie: BaseMovieProps) => {
+          return <AddToFavouritesIcon {...movie} />;
+        }}
+      />
+      <MovieFilterUI
+        onFilterValuesChange={changeFilterValues}
+        titleFilter={filterValues[0]?.value}
+        genreFilter={filterValues[1]?.value}
+        voteAverageFilter={filterValues[2]?.value}
+        releaseDateFilter={filterValues[3]?.value}
+      />
+    </>
+  );
 };
 export default HomePage;

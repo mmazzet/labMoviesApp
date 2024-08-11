@@ -127,6 +127,8 @@ export interface Review {
 
 export interface MovieListPageTemplateProps extends BaseMovieListProps {
   title: string;
+  onNextPage: () => void;
+  onPreviousPage: () => void;
 }
 
 export interface TvShowImage {
