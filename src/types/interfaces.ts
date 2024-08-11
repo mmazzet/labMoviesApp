@@ -86,6 +86,8 @@ export interface TvShowPageProps {
 
 export interface TvShowListPageTemplateProps extends BaseTvShowListProps {
   title: string;
+  onNextPage: () => void;
+  onPreviousPage: () => void;
 }
 
 export type FilterOption = "title" | "genre" | "voteAverage" | "releaseDate";
