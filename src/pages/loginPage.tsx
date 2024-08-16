@@ -8,7 +8,7 @@ import {
   IconButton,
   Paper,
 } from "@mui/material";
-import { supabaseClient } from "../components/config/supabase-client";
+import { supabaseClient } from "../components/config/supabaseClient";
 import { Session } from "@supabase/supabase-js";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useNavigate } from "react-router-dom";
