@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useAuth } from "../../hooks/auth";
 
 const styles = {
     title: {
@@ -27,17 +28,25 @@ const SiteHeader: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
+  const { user, signOut } = useAuth();
+
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Favorites", path: "/movies/favourites" },
     { label: "TV Shows", path: "/tvshows" },
     { label: "My Fantasy Movies", path: "/myFantasyMovies" },
-    { label: "Login", path: "/login" },
+    user
+    ? { label: "Log Out", path: "#", onClick: signOut }
+    : { label: "Log In", path: "/login" },
   ];
 
-  const handleMenuSelect = (pageURL: string) => {
-    navigate(pageURL);
+  const handleMenuSelect = (pageURL: string, onClick?: () => void) => {
+    if (onClick) {
+      onClick();
+    } else {
+      navigate(pageURL);
+    }
   };
 
   const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
@@ -84,7 +93,7 @@ const SiteHeader: React.FC = () => {
                 {menuOptions.map((opt) => (
                   <MenuItem
                     key={opt.label}
-                    onClick={() => handleMenuSelect(opt.path)}
+                    onClick={() => handleMenuSelect(opt.path, opt.onClick)}
                   >
                     {opt.label}
                   </MenuItem>
@@ -97,7 +106,7 @@ const SiteHeader: React.FC = () => {
                 <Button
                   key={opt.label}
                   color="inherit"
-                  onClick={() => handleMenuSelect(opt.path)}
+                  onClick={() => handleMenuSelect(opt.path, opt.onClick)}
                 >
                   {opt.label}
                 </Button>
