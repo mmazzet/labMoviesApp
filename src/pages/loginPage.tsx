@@ -5,12 +5,12 @@ import {
   Typography,
   CircularProgress,
   Box,
-  IconButton,
+  // IconButton,
   Paper,
 } from "@mui/material";
 import { supabaseClient } from "../components/config/supabaseClient";
 import { Session } from "@supabase/supabase-js";
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+// import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
@@ -34,25 +34,23 @@ export default function Auth() {
     event.preventDefault();
     setLoading(true);
     try {
-      const { error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-      navigate("/");
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        const redirectTo = localStorage.getItem('redirectAfterLogin') || "/";
+        navigate(redirectTo);
     } catch (err) {
-      alert(err.error_description || err.message);
+        alert(err.error_description || err.message);
     } finally {
-      setLoading(false);
-      setEmail("");
-      setPassword("");
+        setLoading(false);
+        setEmail("");
+        setPassword("");
     }
-  };
+};
 
-  const handleLogout = async () => {
-    const { error } = await supabaseClient.auth.signOut();
-    if (error) throw error;
-  };
+  // const handleLogout = async () => {
+  //   const { error } = await supabaseClient.auth.signOut();
+  //   if (error) throw error;
+  // };
 
   if (loading) {
     return (
@@ -67,6 +65,7 @@ export default function Auth() {
     );
   }
 
+  
   return (
     <Box
       component="div"
@@ -125,21 +124,7 @@ export default function Auth() {
               Sign in
             </Button>
           </>
-        ) : (
-          <Box textAlign="center">
-            <Typography variant="h6">
-              Welcome back {session.user?.email}
-            </Typography>
-            <IconButton
-              size="large"
-              color="primary"
-              onClick={handleLogout}
-              sx={{ marginTop: "16px" }}
-            >
-              <PowerSettingsNewIcon />
-            </IconButton>
-          </Box>
-        )}
+        ) : null}
       </Paper>
     </Box>
   );

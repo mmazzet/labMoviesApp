@@ -11,7 +11,7 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useAuth } from "../../hooks/auth";
+import { useAuth } from "../../contexts/authContext";
 
 const styles = {
     title: {
@@ -37,7 +37,7 @@ const SiteHeader: React.FC = () => {
     { label: "TV Shows", path: "/tvshows" },
     { label: "My Fantasy Movies", path: "/myFantasyMovies" },
     user
-    ? { label: "Log Out", path: "#", onClick: signOut }
+    ? { label: "Log Out", path: "/", onClick: signOut }
     : { label: "Log In", path: "/login" },
   ];
 
@@ -52,6 +52,7 @@ const SiteHeader: React.FC = () => {
   const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  
 
   return (
     <>

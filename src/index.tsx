@@ -17,7 +17,7 @@ import MyFantasyMoviesPage from "./pages/myFantasyMoviesPage";
 import ActorDetailsPage from "./pages/actorDetailsPage";
 import LoginPage from "./pages/loginPage";
 import ProtectedRoute from "./components/protectedRoute";
-import { AuthProvider } from "./hooks/auth";
+import { AuthProvider } from "./contexts/authContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
