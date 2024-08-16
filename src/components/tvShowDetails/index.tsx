@@ -1,7 +1,7 @@
 import React from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-import Tv from "@mui/icons-material/tv";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
 import Book from "@mui/icons-material/Book";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
@@ -38,7 +38,7 @@ const TvShowDetails: React.FC<TvShowDetailsProps> = (tvShow) => {
       </Typography>
 
       <Paper component="ul" sx={styles.chipSet}>
-        <Chip icon={<Tv />} label={`${tvShow.number_of_seasons} season`} />
+        <Chip icon={<LiveTvIcon />} label={`${tvShow.number_of_seasons} season`} />
         <Chip icon={<Book />} label={`${tvShow.number_of_episodes} episodes`} />
         <Chip
           icon={<StarRate />}

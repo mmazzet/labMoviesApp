@@ -43,7 +43,7 @@ const TvShowsPage: React.FC = () => {
         tvShows={tvShows}
         onNextPage={goToNextPage}
         onPreviousPage={goToPreviousPage}
-        action={(tvShow: BaseTvShowProps)=> null}
+        action={() => null}
         />
     </>
   );

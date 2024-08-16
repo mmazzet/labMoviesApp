@@ -15,33 +15,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { MyFantasyMovies, GenreData } from "../../types/interfaces";
 import { getGenres } from "../../api/tmdb-api";
-
-const styles = {
-  root: {
-    marginTop: 2,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  card: {
-    width: "90%",
-    maxWidth: "600px",
-    padding: "16px",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    "& > * ": {
-      marginTop: 2,
-    },
-  },
-  textField: {
-    width: "100%",
-  },
-  submit: {
-    marginRight: 2,
-  },
-};
+import styles from "./styles";
 
 const MyFantasyMovieForm: React.FC = () => {
   const defaultValues = {
@@ -69,7 +43,11 @@ const MyFantasyMovieForm: React.FC = () => {
     return <Spinner />;
   }
   if (isError) {
-    return <h1>{(error as Error).message}</h1>;
+    return (
+      <Typography variant="h6" component="p">
+        {error.message}
+      </Typography>
+    );
   }
   const genres = data?.genres || [];
 
@@ -86,8 +64,10 @@ const MyFantasyMovieForm: React.FC = () => {
       </Typography>
       <Card sx={styles.card}>
         <CardContent>
-          <form
-            style={styles.form}
+          {/* Replacing form with Box to use sx prop */}
+          <Box
+            component="form" // Box used as a form container
+            sx={styles.form} // Apply styles using sx prop
             onSubmit={handleSubmit(onSubmit)}
             noValidate
           >
@@ -245,7 +225,7 @@ const MyFantasyMovieForm: React.FC = () => {
                 {errors.production_companies.message}
               </Typography>
             )}
-          </form>
+          </Box>
         </CardContent>
         <CardActions>
           <Button

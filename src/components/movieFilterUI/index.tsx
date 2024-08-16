@@ -53,10 +53,9 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedDate, setSelectedDate] = useState<Date | null>(
-    releaseDateFilter ? new Date(releaseDateFilter) : null
-  );
+  // const [selectedDate, setSelectedDate] = useState<Date | null>(
+  //   releaseDateFilter ? new Date(releaseDateFilter) : null
+  // );
 
   return (
     <>
@@ -78,7 +77,7 @@ const MovieFilterUI: React.FC<MovieFilterUIProps> = ({
           titleFilter={titleFilter}
           genreFilter={genreFilter}
           voteAverageFilter={voteAverageFilter}
-          releaseDateFilter={selectedDate ? selectedDate.toISOString() : ""}
+          releaseDateFilter={releaseDateFilter}
         />
       </Drawer>
     </>

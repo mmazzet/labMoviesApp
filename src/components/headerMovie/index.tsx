@@ -23,10 +23,10 @@ const styles = {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const MovieHeader: React.FC<MovieDetailsProps> = (movie, _action ) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { favourites, addToFavourites } = useContext(MoviesContext);
+
+const MovieHeader: React.FC<MovieDetailsProps> = (movie) => {
+
+  const { favourites } = useContext(MoviesContext);
 
   const isFavourite = favourites.find((id) => id === movie.id)? true : false;
 

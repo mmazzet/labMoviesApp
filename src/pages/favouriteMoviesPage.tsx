@@ -13,6 +13,9 @@ import MovieFilterUI, {
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
 
+const handleNextPage = () => {};
+const handlePreviousPage = () => {};
+
 const titleFiltering = {
   name: "title",
   value: "",
@@ -63,6 +66,8 @@ const FavouriteMoviesPage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  
+
   return (
     <>
       <PageTemplate
@@ -76,12 +81,15 @@ const FavouriteMoviesPage: React.FC = () => {
             </>
           );
         }}
+        onNextPage={handleNextPage} 
+        onPreviousPage={handlePreviousPage}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
         voteAverageFilter={filterValues[2].value}
+        releaseDateFilter={filterValues[3]?.value || ""}
       />
     </>
   );
