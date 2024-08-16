@@ -5,12 +5,10 @@ import {
   Typography,
   CircularProgress,
   Box,
-  // IconButton,
   Paper,
 } from "@mui/material";
 import { supabaseClient } from "../components/config/supabaseClient";
 import { Session } from "@supabase/supabase-js";
-// import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
@@ -18,6 +16,7 @@ export default function Auth() {
   const [password, setPassword] = useState<string>("");
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,32 +24,33 @@ export default function Auth() {
       setSession(session);
     });
 
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
+    const { data: listener } = supabaseClient.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
   }, []);
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
+    setErrorMessage(null);
     try {
-        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        const redirectTo = localStorage.getItem('redirectAfterLogin') || "/";
-        navigate(redirectTo);
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      const redirectTo = localStorage.getItem('redirectAfterLogin') || "/";
+      navigate(redirectTo);
     } catch (err) {
-        alert(err.error_description || err.message);
+      const error = err as { error_description?: string; message?: string };
+      setErrorMessage(error.error_description || error.message || "An unknown error occurred");
     } finally {
-        setLoading(false);
-        setEmail("");
-        setPassword("");
+      setLoading(false);
+      setEmail("");
+      setPassword("");
     }
-};
-
-  // const handleLogout = async () => {
-  //   const { error } = await supabaseClient.auth.signOut();
-  //   if (error) throw error;
-  // };
+  };
 
   if (loading) {
     return (
@@ -65,7 +65,6 @@ export default function Auth() {
     );
   }
 
-  
   return (
     <Box
       component="div"
@@ -91,7 +90,7 @@ export default function Auth() {
               Login
             </Typography>
             <Typography variant="body1" align="center" marginBottom="24px">
-              Log in with your email and password below
+              Log in to access protected pages
             </Typography>
             <TextField
               fullWidth
@@ -113,6 +112,11 @@ export default function Auth() {
               onChange={(e) => setPassword(e.target.value)}
               sx={{ marginBottom: "16px" }}
             />
+            {errorMessage && (
+              <Typography variant="body2" color="error" sx={{ marginBottom: "16px" }}>
+                {errorMessage}
+              </Typography>
+            )}
             <Button
               fullWidth
               variant="contained"
@@ -121,7 +125,7 @@ export default function Auth() {
               disabled={loading}
               sx={{ height: "48px" }}
             >
-              Sign in
+              Login
             </Button>
           </>
         ) : null}

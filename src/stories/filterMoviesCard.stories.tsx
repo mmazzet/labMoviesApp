@@ -34,6 +34,8 @@ export const Basic: Story = {
     onUserInput: action("filter input"),
     titleFilter: "",
     genreFilter: "All",
+    voteAverageFilter: "0",
+    releaseDateFilter: "",
   },
 };
 Basic.storyName = "Default";

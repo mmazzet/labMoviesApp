@@ -38,7 +38,7 @@ const SiteHeader: React.FC = () => {
     { label: "My Fantasy Movies", path: "/myFantasyMovies" },
     user
     ? { label: "Log Out", path: "/", onClick: signOut }
-    : { label: "Log In", path: "/login" },
+    : { label: "LogIn", path: "/login" },
   ];
 
   const handleMenuSelect = (pageURL: string, onClick?: () => void) => {

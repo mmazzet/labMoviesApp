@@ -42,7 +42,6 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = ({
   titleFilter,
   genreFilter,
   voteAverageFilter,
-  releaseDateFilter,
   onUserInput,
 }) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>(

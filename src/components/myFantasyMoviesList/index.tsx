@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
-import { Box, Card, CardContent, Chip, Grid, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 
 const MyFantasyMoviesList = () => {
   const { myFantasyMovies } = useContext(MoviesContext);

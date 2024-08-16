@@ -6,7 +6,6 @@ import MovieFilterUI, {
   titleFilter,
   genreFilter,
   voteAverageFilter,
-  releaseDateFilter,
 } from "../components/movieFilterUI";
 import { DiscoverMovies } from "../types/interfaces";
 import { useQuery } from "react-query";
@@ -32,7 +31,7 @@ const voteAverageFiltering = {
 const releaseDateFiltering = {
   name: "releaseDate",
   value: "",
-  condition: (movie, value) => {
+  condition: (movie: BaseMovieProps, value: string) => {
     if (!value) return true;
     const releaseDate = new Date(movie.release_date);
     const filterDate = new Date(value);

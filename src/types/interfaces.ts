@@ -15,6 +15,7 @@ export interface BaseMovieProps {
   revenue: number;
   vote_count: number;
   favourite?: boolean;
+  genre_ids: number[];
 }
 
 export interface BaseTvShowProps {
@@ -43,6 +44,7 @@ export interface BaseTvShowListProps {
 }
 
 export interface MovieDetailsProps extends BaseMovieProps {
+  credits: any;
   genres: {
     id: number;
     name: string;
@@ -201,6 +203,13 @@ export interface Actor {
 
 export interface ActorDetailsProps {
   actor: Actor;
+}
+
+export interface CastMember {
+  id: number;
+  credit_id: string;
+  name: string;
+  character: string;
 }
 
 export interface MyFantasyMovies {
