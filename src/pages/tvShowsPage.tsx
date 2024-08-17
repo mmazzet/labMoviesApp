@@ -3,7 +3,7 @@ import PageTemplate from "../components/templateTvShowListPage";
 import { getTvShows } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
-import { DiscoverTvShows, BaseTvShowProps } from "../types/interfaces";
+import { DiscoverTvShows } from "../types/interfaces";
 
 const TvShowsPage: React.FC = () => {
   const [page, setPage] = useState(1);

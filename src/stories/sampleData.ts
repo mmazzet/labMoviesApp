@@ -78,4 +78,38 @@ export default {
   video: false,
   vote_average: 7,
   vote_count: 9692,
+  credits: {
+    cast: [
+      {
+        adult: false,
+        gender: 2,
+        id: 1,
+        known_for_department: "Acting",
+        name: "Mark Hamill",
+        original_name: "Mark Hamill",
+        popularity: 10.0,
+        profile_path: "/profile_path.jpg",
+        cast_id: 10,
+        character: "Luke Skywalker",
+        credit_id: "52fe4315c3a36847f803c53f",
+        order: 0,
+      },
+    ],
+    crew: [
+      {
+        adult: false,
+        gender: 1,
+        id: 2,
+        known_for_department: "Directing",
+        name: "Rian Johnson",
+        original_name: "Rian Johnson",
+        popularity: 5.0,
+        profile_path: "/profile_path.jpg",
+        credit_id: "52fe4315c3a36847f803c57f",
+        department: "Directing",
+        job: "Director",
+      },
+    ],
+  },
 };
+

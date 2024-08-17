@@ -1,4 +1,3 @@
-import React from "react";
 import MyFantasyMovieForm from "../components/myFantasyMovieForm";
 import MyFantasyMoviesList from "../components/myFantasyMoviesList";
 import { Box, Container, Grid, Paper } from "@mui/material";

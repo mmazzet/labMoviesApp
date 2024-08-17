@@ -17,7 +17,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
     args: {
-        ...SampleMovie
+        ...SampleMovie,
+        credits: SampleMovie.credits || {},
+        genres: SampleMovie.genres || [],
+        production_countries: SampleMovie.production_countries || [],
     }
 };
 Basic.storyName = "Default";
