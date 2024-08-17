@@ -18,6 +18,8 @@ import ActorDetailsPage from "./pages/actorDetailsPage";
 import LoginPage from "./pages/loginPage";
 import ProtectedRoute from "./components/protectedRoute";
 import { AuthProvider } from "./contexts/authContext";
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,6 +36,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <ThemeProvider theme={theme}>
       <AuthProvider>
         <SiteHeader /> 
         
@@ -68,6 +71,7 @@ const App = () => {
         </Routes>
         </MoviesContextProvider>
         </AuthProvider>
+        </ThemeProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
