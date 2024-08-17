@@ -11,6 +11,7 @@ import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
 import { Link } from "react-router-dom";
+import Divider from "@mui/material/Divider";
 
 
 const styles = {
@@ -30,6 +31,13 @@ const styles = {
     position: "fixed",
     top: 50,
     right: 2,
+  },
+
+  castSection: {
+    marginTop: "2rem",
+  },
+  divider: {
+    margin: "2rem 0",
   },
 };
 
@@ -87,6 +95,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = (movie) => {
           </li>
         ))}
       </Paper>
+      <Divider sx={styles.divider} />
 
       <Typography variant="h5" component="h3">
         Cast
