@@ -1,7 +1,5 @@
-import { MyFantasyMovies } from '../types/interfaces';
-
-const sampleFantasyMovies: MyFantasyMovies[] = [
-  {
+export const SampleFantasyMovies = [
+{  
     title: 'Fantasy World',
     overview: 'A world full of magic and wonder.',
     genres: [
@@ -11,8 +9,8 @@ const sampleFantasyMovies: MyFantasyMovies[] = [
     release_date: '2023-08-01',
     runtime: 120,
     production_companies: 'FanFilm Inc.',
-  },
-  {
+    },
+{  
     title: 'Fantasy Journey',
     overview: 'A journey into the fantasy.',
     genres: [
@@ -22,7 +20,5 @@ const sampleFantasyMovies: MyFantasyMovies[] = [
     release_date: '2024-01-15',
     runtime: 89,
     production_companies: 'WCT Studios',
-  },
-];
-
-export default sampleFantasyMovies;
+     }
+]

@@ -26,6 +26,7 @@ This repository contains an implementation of the Movie Fans Web Application usi
 + Filter movies by average vote and release date (all movies released after a date)
 + Added Theme file to update font
 + Updated card format to move title at the bottom and rate at the top right conrner of each card
++ Introduced localisation in multiple languages
 + Deployment in Vercel
 
 
