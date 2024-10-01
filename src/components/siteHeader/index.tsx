@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useAuth } from "../../contexts/authContext";
+import { useTranslation } from "react-i18next";
+
 
 const styles = {
     title: {
@@ -22,6 +24,7 @@ const styles = {
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement|null>(null);
   const open = Boolean(anchorEl);
@@ -62,7 +65,7 @@ const SiteHeader: React.FC = () => {
             TMDB Client
           </Typography>
           <Typography variant="h6" sx={styles.title}>
-            All you ever wanted to know about Movies!
+            {t("title_site_header")}
           </Typography>
           {isMobile ? (
             <>
