@@ -13,7 +13,6 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useAuth } from "../../contexts/authContext";
 import { useTranslation } from "react-i18next";
-import { Language } from "@mui/icons-material";
 import LanguageDropdown from "../languageDropdown";
 
 

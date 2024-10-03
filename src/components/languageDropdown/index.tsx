@@ -1,33 +1,30 @@
 import LanguageIcon from '@mui/icons-material/Language';
-/* import { Dropdown } from '@mui/base/Dropdown';
-import { MenuButton } from '@mui/base/MenuButton';
-import { Menu } from '@mui/base/Menu';
-import { MenuItem } from '@mui/base/MenuItem'; */
-
+import * as React from 'react';
+import { MenuItem, Select, FormControl } from '@mui/material';
+import i18next from 'i18next';
 
 const languages = [
-  { code: "en", name: "English", country_code: "ie" },
-  { code: "it", name: "Italiano", country_code: "it" },
-
+  { code: 'en', name: 'English' },
+  { code: 'it', name: 'Italiano'},
 ];
 
 const LanguageDropdown: React.FC = () => {
   return (
-    <div>
-      <LanguageIcon />
-{/*       <Dropdown>
-  <MenuButton>My account</MenuButton>
-  <Menu slots={{ listbox: Listbox }}>
-    <MenuItem onClick={createHandleMenuClick('Profile')}>Profile</MenuItem>
-    <MenuItem onClick={createHandleMenuClick('Language settings')}>
-      Language settings
-    </MenuItem>
-    <MenuItem onClick={createHandleMenuClick('Log out')}>Log out</MenuItem>
-  </Menu>
-</Dropdown> */}
-    </div>
+    <FormControl>
+      <Select
+        displayEmpty
+        IconComponent={() => <LanguageIcon sx={{ color: 'white' }} />}
+        inputProps={{ 'aria-label': 'language' }}
+        style={{ minWidth: '40px' }} 
+      >
+        {languages.map(({ code, name }) => (
+          <MenuItem key={code} value={code} onClick={() => i18next.changeLanguage(code)}>
+            {name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 
 export default LanguageDropdown;
-
