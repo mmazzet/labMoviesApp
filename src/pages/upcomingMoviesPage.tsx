@@ -5,9 +5,11 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToPlaylistIcon from "../components/cardIcons/addToPlaylist";
 import { DiscoverMovies } from "../types/interfaces";
+import { useTranslation } from "react-i18next";
 
 const UpcomingMoviesPage: React.FC = () => {
   const [page, setPage] = useState(1);
+  const { t } = useTranslation();
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
     ["upcoming", page],
     () => getUpcomingMovies(page),
@@ -37,7 +39,7 @@ const UpcomingMoviesPage: React.FC = () => {
 
   return (
     <PageTemplate
-      title="Upcoming Movies"
+      title={t("homepage_header_upcoming_movies")}
       movies={movies}
       action={(movie) => {
         return <AddToPlaylistIcon movie={movie} />;

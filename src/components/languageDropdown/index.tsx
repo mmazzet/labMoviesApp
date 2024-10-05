@@ -1,11 +1,6 @@
+import React from "react";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
-import * as React from "react";
-import {
-  MenuItem,
-  Select,
-  FormControl,
-  SelectChangeEvent,
-} from "@mui/material";
 import i18next from "i18next";
 
 const languages = [
@@ -14,31 +9,47 @@ const languages = [
 ];
 
 const LanguageDropdown: React.FC = () => {
-  const [selectedLanguage, setSelectedLanguage] = React.useState(
-    i18next.language
-  );
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedLanguage, setSelectedLanguage] = React.useState(i18next.language);
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    const newLanguage = event.target.value as string;
-    setSelectedLanguage(newLanguage);
-    i18next.changeLanguage(newLanguage);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLanguageChange = (code: string) => {
+    setSelectedLanguage(code);
+    i18next.changeLanguage(code);
+    handleClose();
   };
   return (
-    <FormControl>
-      <Select
-        value={selectedLanguage}
-        onChange={handleChange}
-        IconComponent={() => <LanguageIcon sx={{ color: "white" }} />}
-        renderValue={() => null}
-        style={{ minWidth: "40px" }}
-      >
-        {languages.map(({ code, name }) => (
-          <MenuItem key={code} value={code}>
-            {name}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <div>
+    <IconButton
+      onClick={handleClick}
+      sx={{ color: "white" }} 
+    >
+      <LanguageIcon />
+    </IconButton>
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+      keepMounted
+    >
+      {languages.map(({ code, name }) => (
+        <MenuItem
+          key={code}
+          selected={code === selectedLanguage}
+          onClick={() => handleLanguageChange(code)}
+        >
+          {name}
+        </MenuItem>
+      ))}
+    </Menu>
+  </div>
   );
 };
 

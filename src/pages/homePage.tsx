@@ -12,6 +12,7 @@ import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import { BaseMovieProps } from "../types/interfaces";
+import { useTranslation } from "react-i18next";
 
 const titleFiltering = {
   name: "title",
@@ -41,6 +42,7 @@ const releaseDateFiltering = {
 
 const HomePage: React.FC = () => {
   const [page, setPage] = useState(1);
+  const { t } = useTranslation();
 
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
     ["discover", page],
@@ -94,7 +96,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <PageTemplate
-        title="Discover Movies"
+        title={t("homepage_header_discover_movies")}
         movies={displayedMovies}
         onNextPage={goToNextPage}
         onPreviousPage={goToPreviousPage}
