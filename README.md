@@ -2,10 +2,6 @@
 
 ###### Full Stack Development 2, HDip in Computer Science
 
-__Name:__ Marianna Mazzette
-
-__Video Demo:__ https://youtu.be/GbTwHsEYuzE
-
 
 This repository contains an implementation of the Movie Fans Web Application using the React library. 
 
